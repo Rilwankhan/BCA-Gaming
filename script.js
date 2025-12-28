@@ -1263,7 +1263,25 @@ function updateLeaderboard() {
 function showAvatarSelector() {
   try {
     const modal = document.getElementById('avatar-modal');
-    if (modal) modal.classList.remove('hidden');
+    if (modal) {
+      modal.classList.remove('hidden');
+      
+      // Add click outside to close functionality
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeAvatarSelector();
+        }
+      });
+      
+      // Add escape key to close functionality
+      const handleEscape = function(e) {
+        if (e.key === 'Escape') {
+          closeAvatarSelector();
+          document.removeEventListener('keydown', handleEscape);
+        }
+      };
+      document.addEventListener('keydown', handleEscape);
+    }
   } catch (error) {
     console.error('Error showing avatar selector:', error);
   }
@@ -1280,18 +1298,27 @@ function closeAvatarSelector() {
 
 function selectAvatar(avatar) {
   try {
-    if (currentUser && typeof avatar === 'string' && avatar.trim() && avatar.length <= 2) {
+    if (currentUser && typeof avatar === 'string' && avatar.trim()) {
       const sanitizedAvatar = avatar.trim();
       currentUser.avatar = sanitizedAvatar;
       saveUser();
       
+      // Update all avatar displays
       const dashboardAvatar = document.getElementById('dashboard-avatar');
       if (dashboardAvatar) dashboardAvatar.textContent = sanitizedAvatar;
       
+      // Update other avatar displays if they exist
+      const userPositionAvatar = document.getElementById('user-position-avatar');
+      if (userPositionAvatar) userPositionAvatar.textContent = sanitizedAvatar;
+      
       closeAvatarSelector();
+      
+      // Show success message
+      alert('Avatar updated successfully!');
     }
   } catch (error) {
     console.error('Error selecting avatar:', error);
+    alert('Error updating avatar. Please try again.');
   }
 }
 
