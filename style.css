@@ -1505,6 +1505,31 @@ input {
   background: hsla(160, 100%, 50%, 0.2);
   border: 2px solid var(--primary);
   border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px hsla(160, 100%, 50%, 0.3);
+}
+
+.profile-avatar::after {
+  content: '✏️';
+  position: absolute;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  font-size: 1rem;
+  background: var(--primary);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background);
 }
 
 .profile-info {
@@ -2060,14 +2085,7 @@ input {
   transform: scale(1.1);
 }
 
-.profile-avatar {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
 
-.profile-avatar:hover {
-  transform: scale(1.1);
-}
 
 /* ============================================
    CHATBOT
