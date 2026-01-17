@@ -469,7 +469,7 @@ function handleAuth(e) {
   if (currentAuthTab === 'signup') {
     const globalUsers = JSON.parse(localStorage.getItem('codequest_global_users') || '[]');
     if (globalUsers.some(u => u.username === username)) {
-      errorEl.textContent = 'The name entered is already existing in the game';
+      errorEl.textContent = 'This name is already exist';
       errorEl.classList.remove('hidden');
       return;
     }
