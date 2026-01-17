@@ -1475,14 +1475,16 @@ async function sendChatMessage() {
         if (typingIndicator?.parentNode) {
           typingIndicator.remove();
         }
-        addChatMessage("Chatbot temporarily disabled for security. Please contact support for assistance! 🔒", 'bot');
+        
+        const response = getChatbotResponse(message.toLowerCase());
+        addChatMessage(response, 'bot');
       } catch (innerError) {
         console.error('Error in chatbot response:', innerError);
         addChatMessage("Sorry, there was an error processing your message.", 'bot');
       } finally {
         isChatLoading = false;
       }
-    }, 1000);
+    }, 1000 + Math.random() * 1000); // Random delay for more natural feel
   } catch (error) {
     console.error('Error in sendChatMessage:', error);
     
@@ -1501,6 +1503,87 @@ async function sendChatMessage() {
       console.error('Failed to show error message to user:', feedbackError);
     }
   }
+}
+
+function getChatbotResponse(message) {
+  // Game-related responses
+  if (message.includes('how to play') || message.includes('how do i play') || message.includes('rules')) {
+    return "🎮 Here's how to play D-RILYTE WAR:\n\n1. Select a programming language (C, C++, Python, Java, HTML, CSS, JavaScript)\n2. Choose difficulty: Easy (10 pts), Medium (20 pts), Hard (30 pts)\n3. Answer MCQ questions correctly to destroy enemy bots\n4. Wrong answers damage your hero\n5. Complete all questions to win the battle!\n\nReady to start coding? 💪";
+  }
+  
+  if (message.includes('points') || message.includes('score') || message.includes('scoring')) {
+    return "⚡ Scoring System:\n\n• Easy questions: 10 points each\n• Medium questions: 20 points each\n• Hard questions: 30 points each\n\nEarn points by answering correctly and climb the leaderboard! Your total points determine your global rank. 🏆";
+  }
+  
+  if (message.includes('language') || message.includes('programming') || message.includes('subjects')) {
+    return "💻 Available Programming Languages:\n\n🔷 C - System programming basics\n⚡ C++ - Object-oriented programming\n🐍 Python - Easy and powerful\n☕ Java - Enterprise development\n🌐 HTML - Web structure\n🎨 CSS - Web styling\n⚡ JavaScript - Web interactivity\n\nEach has 15 questions across 3 difficulty levels!";
+  }
+  
+  if (message.includes('difficulty') || message.includes('easy') || message.includes('medium') || message.includes('hard')) {
+    return "⭐ Difficulty Levels:\n\n⭐ Easy: Basic concepts, 5 questions, 10 pts each\n⭐⭐ Medium: Intermediate topics, 5 questions, 20 pts each\n⭐⭐⭐ Hard: Advanced concepts, 5 questions, 30 pts each\n\nStart with Easy if you're new, or challenge yourself with Hard for maximum points! 🚀";
+  }
+  
+  if (message.includes('leaderboard') || message.includes('rank') || message.includes('ranking')) {
+    return "🏆 Leaderboard System:\n\n• Global ranking based on total points\n• Top 25 players displayed\n• Your current rank shown in dashboard\n• Compete with friends and other BCA students\n\nKeep playing to climb higher! Every correct answer counts. 📈";
+  }
+  
+  if (message.includes('dashboard') || message.includes('progress') || message.includes('stats')) {
+    return "📊 Your Dashboard shows:\n\n• Total points and global rank\n• Progress in each programming language\n• Battles won and completion percentage\n• Friends leaderboard\n• Avatar customization\n\nTrack your coding journey and see how you're improving! 📈";
+  }
+  
+  if (message.includes('friend') || message.includes('add friend')) {
+    return "👥 Adding Friends:\n\n1. Go to Dashboard\n2. Use the friend search box\n3. Enter their exact username\n4. Click 'Add Friend'\n\nCompete with your classmates and see who's the best coder! 🎯";
+  }
+  
+  // Coding help responses
+  if (message.includes('c programming') || message.includes('c language')) {
+    return "🔷 C Programming Tips:\n\n• Remember to include headers like stdio.h\n• Use proper syntax for printf() and scanf()\n• Understand pointers and memory management\n• Practice with loops and conditionals\n\nC is the foundation of programming - master it first! 💪";
+  }
+  
+  if (message.includes('python') || message.includes('python help')) {
+    return "🐍 Python Tips:\n\n• Python is beginner-friendly with clean syntax\n• Remember proper indentation (4 spaces)\n• Use print() for output, input() for input\n• Lists use [], dictionaries use {}\n• Practice with functions and loops\n\nPython is great for beginners! 🌟";
+  }
+  
+  if (message.includes('java') || message.includes('java help')) {
+    return "☕ Java Tips:\n\n• Everything is object-oriented\n• Remember public static void main()\n• Use System.out.println() for output\n• Understand classes and objects\n• Practice inheritance and polymorphism\n\nJava is powerful for enterprise development! 🚀";
+  }
+  
+  if (message.includes('html') || message.includes('web development')) {
+    return "🌐 HTML Tips:\n\n• HTML structures web content\n• Use semantic tags like <header>, <main>, <footer>\n• Remember to close tags properly\n• Use attributes for additional info\n• Practice with forms and links\n\nHTML is the backbone of the web! 🌍";
+  }
+  
+  if (message.includes('css') || message.includes('styling')) {
+    return "🎨 CSS Tips:\n\n• CSS styles HTML elements\n• Use selectors: element, .class, #id\n• Understand the box model\n• Practice with flexbox and grid\n• Learn responsive design\n\nCSS makes websites beautiful! ✨";
+  }
+  
+  if (message.includes('javascript') || message.includes('js')) {
+    return "⚡ JavaScript Tips:\n\n• JavaScript adds interactivity\n• Use let/const instead of var\n• Understand functions and scope\n• Practice with DOM manipulation\n• Learn async/await for promises\n\nJavaScript powers modern web apps! 🔥";
+  }
+  
+  // Motivational responses
+  if (message.includes('difficult') || message.includes('hard') || message.includes('struggling')) {
+    return "💪 Don't give up! Every expert was once a beginner.\n\n• Start with easier questions to build confidence\n• Practice regularly - consistency is key\n• Learn from your mistakes\n• Ask for help when needed\n\nYou've got this, future coding champion! 🌟";
+  }
+  
+  if (message.includes('motivation') || message.includes('encourage')) {
+    return "🚀 You're on an amazing journey!\n\nCoding is like solving puzzles - each problem makes you stronger. Every line of code you write, every question you answer correctly, brings you closer to becoming a programming master!\n\nKeep battling those bots! 🤖⚔️";
+  }
+  
+  // General responses
+  if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+    return "Hey there, coding warrior! 👋\n\nI'm here to help you master programming through epic bot battles! Ask me about:\n\n• How to play the game\n• Programming tips\n• Scoring system\n• Any coding questions\n\nWhat would you like to know? 🎮";
+  }
+  
+  if (message.includes('help') || message.includes('support')) {
+    return "🤖 I'm here to help! You can ask me about:\n\n🎮 Game mechanics and rules\n💻 Programming language tips\n📊 Scoring and ranking system\n🏆 Leaderboard and competition\n📈 Progress tracking\n👥 Adding friends\n\nWhat specific help do you need? 💪";
+  }
+  
+  if (message.includes('thank') || message.includes('thanks')) {
+    return "You're very welcome! 😊\n\nI'm always here to help you on your coding journey. Keep practicing, keep learning, and most importantly - keep having fun with code!\n\nHappy coding! 🎉";
+  }
+  
+  // Default response
+  return "🤖 I'm your CodeQuest guide! I can help with:\n\n• Game rules and how to play\n• Programming tips for all 7 languages\n• Scoring system and rankings\n• Progress tracking\n• General coding questions\n\nTry asking something like 'How do I play?' or 'Tell me about Python' or 'How does scoring work?'\n\nWhat would you like to know? 💡";
 }
 
 function addChatMessage(text, sender) {
