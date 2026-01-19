@@ -148,7 +148,8 @@ input {
     0 0 10px hsla(160, 100%, 50%, 0.8),
     0 0 20px hsla(160, 100%, 50%, 0.6),
     0 0 40px hsla(160, 100%, 50%, 0.4);
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-left: -25px;
 }
 
 .game-card {
@@ -324,12 +325,14 @@ input {
 }
 
 .nav-logo-icon {
-  font-size: 1.5rem;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .nav-logo-text {
   font-family: 'Press Start 2P', cursive;
-  font-size: 0.6rem;
+  font-size: 0.9rem;
   margin-top: 10px;
   color: var(--primary);
   text-shadow: 0 0 10px hsla(160, 100%, 50%, 0.5);
@@ -337,7 +340,9 @@ input {
 }
 
 @media (min-width: 640px) {
-  .nav-logo-text { display: block; }
+  .nav-logo-text { 
+    display: block; 
+  }
 }
 
 .nav-links {
@@ -550,7 +555,9 @@ input {
 }
 
 .landing-logo-icon {
-  font-size: 3rem;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
 }
 
 .landing-logo-text {
@@ -753,6 +760,12 @@ input {
   justify-content: center;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+.home-logo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
 }
 
 .home-logo span {
